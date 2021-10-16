@@ -10,14 +10,24 @@ dotenv.config();
 
 app.get("/weather", async (req:any, res:any)=>{
   const location:string = req.query.location;
-  const timezoneJSON = await weather.timezone(location);
   const astrologyJSON = await weather.astronomy(location);
-  const realtimeJSON = await weather.realtime(location);
   const forecastJSON = await weather.forecast(location);
 
-  console.log(timezoneJSON);
+
+  // const mainJSON = {
+  //   city:{
+  //     cityName: astrologyJSON.location.name,
+  //     countryName: astrologyJSON.location.country,
+  //     localTime: astrologyJSON.location.localtime,
+  //     timezone: astrologyJSON.location.tz_id,
+  //   },
+  //   astrology: astrologyJSON.astronomy.astro,
+
+  // }
+
+  // console.log(mainJSON);
+
   console.log(astrologyJSON);
-  console.log(realtimeJSON);
   console.log(forecastJSON);
 })
 
