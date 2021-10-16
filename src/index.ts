@@ -9,11 +9,13 @@ app.use(cors());
 dotenv.config();
 
 app.get("/weather", async (req:any, res:any)=>{
-  const location:string = req.query.location;
+  const location:string = req.query.location;//Gets location from query URL
+
+  //Queries the WeatherAPI for astronomy/forecast information
   const astrologyJSON = await weather.astronomy(location);
   const forecastJSON = await weather.forecast(location);
 
-
+  //Packages information into new JSON, with only required information
   const mainJSON = {
     city:{
       cityname: astrologyJSON.location.name,
@@ -31,9 +33,9 @@ app.get("/weather", async (req:any, res:any)=>{
     },
     forecast: forecastJSON.forecast,
   }
-  res.send(mainJSON);
+  res.send(mainJSON);//Returns new JSON
 })
 
 app.listen(process.env.PORT,()=>{
-  console.log("Running on PORT: " + process.env.PORT);
+  console.log("Running on PORT: " + process.env.PORT);//Shows that server running, with selected .env port
 })
