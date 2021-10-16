@@ -1,12 +1,18 @@
-import express from "express";
-
+const express = require("express");
 const dotenv = require("dotenv");
-dotenv.config();
+const axios = require("axios");
 
 const app = express();
+dotenv.config();
 
-app.get("/", (req, res)=>{
-  res.send("WOO");
+app.get("/nightofdrinks", async (req:any, res:any)=>{
+  const test = await axios.get("https://the-cocktail-db.p.rapidapi.com/random.php", {
+    headers: {
+      "x-rapidapi-host":"the-cocktail-db.p.rapidapi.com",
+      "x-rapidapi-key":process.env.RAPIDXAPI
+    }
+  })
+  res.send(test.data);
 })
 
 app.listen(process.env.PORT,()=>{
