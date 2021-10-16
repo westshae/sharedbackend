@@ -11,13 +11,14 @@ dotenv.config();
 app.get("/weather", async (req:any, res:any)=>{
   const location:string = req.query.location;
   const timezoneJSON = await weather.timezone(location);
-  // const recieved = await axios.get("https://the-cocktail-db.p.rapidapi.com/random.php", {
-  //   headers: {
-  //     "x-rapidapi-host":"the-cocktail-db.p.rapidapi.com",
-  //     "x-rapidapi-key":process.env.RAPIDXAPI
-  //   }
-  // })
-  // res.send(recieved.data);
+  const astrologyJSON = await weather.astronomy(location);
+  const realtimeJSON = await weather.realtime(location);
+  const forecastJSON = await weather.forecast(location);
+
+  console.log(timezoneJSON);
+  console.log(astrologyJSON);
+  console.log(realtimeJSON);
+  console.log(forecastJSON);
 })
 
 app.listen(process.env.PORT,()=>{
