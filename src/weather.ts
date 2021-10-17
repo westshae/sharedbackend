@@ -25,7 +25,7 @@ module.exports = {
       },
       params: {
         q: location,
-        days: 5
+        days: 3
       }
     })
     return(recieved.data);
