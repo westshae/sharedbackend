@@ -1,3 +1,4 @@
+//Adds autocomplete to whatever string is provided
 const autocomplete = async (location:string) =>{
   const axios = require("axios");
     const recieved = await axios.get("https://weatherapi-com.p.rapidapi.com/search.json", {
