@@ -18,7 +18,7 @@ module.exports = {
   astronomy: async function(location:string){
     const axios = require("axios");
     let autocompleted = await autocomplete(location);
-    const recieved = await axios.get("https://weatherapi-com.p.rapidapi.com/astronomy.json", {
+    let recieved = await axios.get("https://weatherapi-com.p.rapidapi.com/astronomy.json", {
       headers: {
         "x-rapidapi-host":"weatherapi-com.p.rapidapi.com",
         "x-rapidapi-key":process.env.RAPIDXAPI
@@ -44,7 +44,7 @@ module.exports = {
       },
       params: {
         q: autocompleted,
-        days: 3
+        days: "5"
       }
     })
     return(recieved.data);
