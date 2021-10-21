@@ -1,5 +1,9 @@
 //Adds autocomplete to whatever string is provided
 const autocomplete = async (location:string) =>{
+  console.log(location);
+  if(location == ""){return;}
+
+  console.log("request:" + location);
   const axios = require("axios");
     const recieved = await axios.get("https://weatherapi-com.p.rapidapi.com/search.json", {
       headers: {
@@ -16,6 +20,7 @@ const autocomplete = async (location:string) =>{
 module.exports = {
   //Returns astronomy data, such as sunrise/set, moon phase etc
   astronomy: async function(location:string){
+    if(location == ""){return;}
     const axios = require("axios");
     let autocompleted = await autocomplete(location);
     let recieved = await axios.get("https://weatherapi-com.p.rapidapi.com/astronomy.json", {
@@ -32,6 +37,8 @@ module.exports = {
 
   //Returns next 3 days of weather
   forecast: async function(location:string){
+    if(location == ""){return;}
+
     const axios = require("axios");
 
     let autocompleted = await autocomplete(location);
@@ -44,7 +51,7 @@ module.exports = {
       },
       params: {
         q: autocompleted,
-        days: "5"
+        days: '3'
       }
     })
     return(recieved.data);

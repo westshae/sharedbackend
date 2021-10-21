@@ -15,13 +15,13 @@ app.get("/weather", async (req:any, res:any)=>{
   const astrologyJSON = await weather.astronomy(location);
   const forecastJSON = await weather.forecast(location);
 
+  if(astrologyJSON == null || forecastJSON == null){return;}
+
   //Packages information into new JSON, with only required information
   const mainJSON = {
     city:{
       cityname: astrologyJSON.location.name,
       countryname: astrologyJSON.location.country,
-      localtime: astrologyJSON.location.localtime,
-      timezone: astrologyJSON.location.tz_id,
     },
     astrology: astrologyJSON.astronomy.astro,
     current: {
