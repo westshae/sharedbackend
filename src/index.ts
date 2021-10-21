@@ -9,31 +9,36 @@ app.use(cors());
 dotenv.config();
 
 app.get("/weather", async (req:any, res:any)=>{
-  const location:string = req.query.location;//Gets location from query URL
+  try{
+    const location:string = req.query.location;//Gets location from query URL
 
-  //Queries the WeatherAPI for astronomy/forecast information
-  const astrologyJSON = await weather.astronomy(location);
-  const forecastJSON = await weather.forecast(location);
-
-  if(astrologyJSON == null || forecastJSON == null){return;}
-
-  //Packages information into new JSON, with only required information
-  const mainJSON = {
-    city:{
-      cityname: astrologyJSON.location.name,
-      countryname: astrologyJSON.location.country,
-    },
-    astrology: astrologyJSON.astronomy.astro,
-    current: {
-      temp: forecastJSON.current.temp_c,
-      condition: forecastJSON.current.condition,
-      windspeed: forecastJSON.current.wind_kph,
-      winddirection: forecastJSON.current.wind_dir,
-      humidity: forecastJSON.current.humidity,
-    },
-    forecast: forecastJSON.forecast,
+    //Queries the WeatherAPI for astronomy/forecast information
+    const astrologyJSON = await weather.astronomy(location);
+    const forecastJSON = await weather.forecast(location);
+  
+    if(astrologyJSON == null || forecastJSON == null){return;}
+  
+    //Packages information into new JSON, with only required information
+    const mainJSON = {
+      city:{
+        cityname: astrologyJSON.location.name,
+        countryname: astrologyJSON.location.country,
+      },
+      astrology: astrologyJSON.astronomy.astro,
+      current: {
+        temp: forecastJSON.current.temp_c,
+        condition: forecastJSON.current.condition,
+        windspeed: forecastJSON.current.wind_kph,
+        winddirection: forecastJSON.current.wind_dir,
+        humidity: forecastJSON.current.humidity,
+      },
+      forecast: forecastJSON.forecast,
+    }
+    res.send(mainJSON);//Returns new JSON
+  }catch(error){
+    console.log(error);
   }
-  res.send(mainJSON);//Returns new JSON
+  
 })
 
 app.listen(process.env.PORT,()=>{
